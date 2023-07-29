@@ -25,6 +25,11 @@ contract FantasyFunds is Ownable {
             !boughtIn[msg.sender],
             "You have already bought in to this league"
         );
+        require(
+            keccak256(abi.encodePacked(players[msg.sender])) !=
+                keccak256(abi.encodePacked("")),
+            "You must register to buy in"
+        );
         boughtIn[msg.sender] = true;
         totalBalance += msg.value;
     }

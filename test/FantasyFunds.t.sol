@@ -8,6 +8,11 @@ contract CounterTest is Test {
     FantasyFunds public funds;
 
     function setUp() public {
-        funds = new FantasyFunds();
+        funds = new FantasyFunds("testLeague", 1);
+    }
+
+    function testBuyIn() public {
+        funds.buyIn();
+        assertEq(funds.totalBalance(), 1);
     }
 }
