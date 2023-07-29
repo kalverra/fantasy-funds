@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
 contract FantasyFunds is Ownable {
     string public leagueName;
@@ -12,6 +12,7 @@ contract FantasyFunds is Ownable {
     mapping(address => string) public players; // player address => player user name
 
     constructor(string memory _leagueName, uint _buyInAmount) {
+        require(_buyInAmount > 0, "Buy in amount must be greater than 0");
         leagueName = _leagueName;
         buyInAmount = _buyInAmount;
     }
