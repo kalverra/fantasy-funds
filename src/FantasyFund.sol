@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.21;
 
-import "openzeppelin-contracts/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract FantasyFunds is Ownable {
+contract FantasyFund is Ownable {
     string public leagueName;
     uint public totalBalance;
     uint public buyInAmount;
@@ -35,8 +35,14 @@ contract FantasyFunds is Ownable {
         totalBalance += msg.value;
     }
 
+    function payout(address winner) public onlyOwner {
+        require(boughtIn[winner], "Winner must have bought in to this league");
+        payable(winner).transfer(totalBalance);
+        totalBalance = 0;
+    }
+
     function registerPlayer(
-        string memory _playerName,
+        string calldata _playerName,
         address _address
     ) public onlyOwner {
         players[_address] = _playerName;
